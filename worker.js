@@ -35,7 +35,7 @@ const sessionWorker = new Worker('sessionQueue', async (job) => {
     }
 }, {
     connection: {
-        host: 'localhost',
+        host: '192.168.1.38',
         port: 6379,
     },
     settings: {
