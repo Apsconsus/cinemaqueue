@@ -8,9 +8,9 @@ async function scheduleJobs() {
     try {
         // Query unprocessed sessions
         const result = await pool.query(
-            `SELECT id AS sessionId, cinemaId, utcDate AS sessionTime
+            `SELECT id AS sessionId, cinemaId, Date AS sessionTime
        FROM sessions
-       WHERE utcDate BETWEEN $1 AND $2
+       WHERE Date BETWEEN $1 AND $2
        AND NOT EXISTS (
            SELECT 1 FROM processed_sessions WHERE id = CONCAT(sessions.id, '-', sessions.cinemaId)
        )`,
