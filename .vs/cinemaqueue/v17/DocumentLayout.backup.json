@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\GitHub\\cinemaqueue\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHub\\cinemaqueue\\InspectQueue.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:InspectQueue.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\GitHub\\cinemaqueue\\scheduler.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scheduler.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
@@ -30,11 +34,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "inspectQueue.js",
+              "DocumentMoniker": "C:\\GitHub\\cinemaqueue\\inspectQueue.js",
+              "RelativeDocumentMoniker": "inspectQueue.js",
+              "ToolTip": "C:\\GitHub\\cinemaqueue\\inspectQueue.js",
+              "RelativeToolTip": "inspectQueue.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-12-11T09:52:19.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "worker.js",
               "DocumentMoniker": "C:\\GitHub\\cinemaqueue\\worker.js",
               "RelativeDocumentMoniker": "worker.js",
@@ -46,7 +63,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "scheduler.js",
               "DocumentMoniker": "C:\\GitHub\\cinemaqueue\\scheduler.js",
               "RelativeDocumentMoniker": "scheduler.js",
@@ -59,7 +76,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "queue.js",
               "DocumentMoniker": "C:\\GitHub\\cinemaqueue\\queue.js",
               "RelativeDocumentMoniker": "queue.js",
@@ -67,12 +84,11 @@
               "RelativeToolTip": "queue.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-12-11T06:45:14.447Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-11T06:45:14.447Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "db.js",
               "DocumentMoniker": "C:\\GitHub\\cinemaqueue\\db.js",
               "RelativeDocumentMoniker": "db.js",
@@ -84,7 +100,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "package.json",
               "DocumentMoniker": "C:\\GitHub\\cinemaqueue\\package.json",
               "RelativeDocumentMoniker": "package.json",

@@ -1,3 +1,4 @@
+console.log('Starting scheduler.js...');
 const pool = require('./db');
 const sessionQueue = require('./queue');
 
