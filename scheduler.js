@@ -59,4 +59,4 @@ async function scheduleJobs() {
     }
 }
 
-module.exports = scheduleJobs;
+scheduleJobs();
