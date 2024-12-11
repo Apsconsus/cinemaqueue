@@ -1,20 +1,20 @@
 const { Worker } = require('bullmq');
 const axios = require('axios');
-const pool = require('./db'); // Import database connection
+const pool = require('./db');
 
-// Delay function to pause execution
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const sessionWorker = new Worker('sessionQueue', async (job) => {
     const { sessionId, cinemaId } = job.data;
     const apiUrl = `https://apim.hoyts.com.au/au/ticketing/api/v1/ticket/seats/${cinemaId}/${sessionId}`;
 
-    console.log(`Processing job with ID: ${job.id}, Session ID: ${sessionId}, Cinema ID: ${cinemaId}`);
+    console.log(`Processing job with ID: ${job.id}`);
+    console.log(`Session ID: ${sessionId}, Cinema ID: ${cinemaId}`);
     console.log(`API URL: ${apiUrl}`);
 
     try {
-        await delay(1000); // Add 1-second delay to avoid rate limiting
-        console.log('Fetching API data...');
+        await delay(1000); // Avoid rate limiting
+        console.log(`Fetching data from API for session ${sessionId}...`);
 
         const response = await axios.get(apiUrl);
         const data = response.data;
@@ -26,10 +26,10 @@ const sessionWorker = new Worker('sessionQueue', async (job) => {
             return count + row.seats.filter(seat => seat.sold).length;
         }, 0);
 
-        console.log(`Total sold seats for session ${sessionId}: ${soldSeats}`);
+        console.log(`Sold seats for session ${sessionId}: ${soldSeats}`);
 
-        // Save results to the database
-        console.log('Saving results to the database...');
+        // Save to database
+        console.log(`Saving results to the database for session ${sessionId}...`);
         await pool.query(
             `INSERT INTO session_results (session_id, cinema_id, sold_seats, processed_at)
              VALUES ($1, $2, $3, NOW())
@@ -38,11 +38,11 @@ const sessionWorker = new Worker('sessionQueue', async (job) => {
             [sessionId, cinemaId, soldSeats]
         );
 
-        console.log(`Successfully saved results for session ${sessionId} to the database.`);
+        console.log(`Results successfully saved for session ${sessionId}.`);
     } catch (error) {
-        console.error(`Failed to process session ${sessionId}:`, error.message);
+        console.error(`Error processing session ${sessionId}:`, error.message);
         console.error('Error stack:', error.stack);
-        throw error;
+        throw error; // Ensures BullMQ registers the job as failed
     }
 }, {
     connection: {
@@ -50,17 +50,19 @@ const sessionWorker = new Worker('sessionQueue', async (job) => {
         port: 6379,
     },
     settings: {
-        retryProcessDelay: 60000, // Retry after 60 seconds if it fails
+        retryProcessDelay: 60000, // Retry after 60 seconds
     },
 });
 
-console.log('Worker is running and waiting for jobs...');
+// Log failed jobs
+sessionWorker.on('failed', (job, err) => {
+    console.error(`Job ${job.id} failed with error: ${err ? err.message : 'Unknown error'}`);
+    if (err) console.error('Error stack:', err.stack);
+});
 
-// Worker event listeners for additional logs
+// Log completed jobs
 sessionWorker.on('completed', (job) => {
     console.log(`Job ${job.id} completed successfully.`);
 });
 
-sessionWorker.on('failed', (job, err) => {
-    console.error(`Job ${job.id} failed with error: ${err.message}`);
-});
+console.log('Worker is running and waiting for jobs...');
