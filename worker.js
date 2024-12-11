@@ -2,6 +2,9 @@ const { Worker } = require('bullmq');
 const axios = require('axios');
 const pool = require('./db'); // Import database connection
 
+// Delay function to pause execution
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 const sessionWorker = new Worker('sessionQueue', async (job) => {
     const { sessionId, cinemaId } = job.data;
     const apiUrl = `https://apim.hoyts.com.au/au/ticketing/api/v1/ticket/seats/${cinemaId}/${sessionId}`;
@@ -60,12 +63,4 @@ sessionWorker.on('completed', (job) => {
 
 sessionWorker.on('failed', (job, err) => {
     console.error(`Job ${job.id} failed with error: ${err.message}`);
-});
-
-sessionWorker.on('error', (err) => {
-    console.error('Worker encountered an error:', err);
-});
-
-sessionWorker.on('stalled', (job) => {
-    console.warn(`Job ${job.id} has stalled.`);
 });
