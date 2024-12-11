@@ -13,11 +13,13 @@ async function inspectQueue() {
         const activeJobs = await sessionQueue.getJobs(['active']);
         const completedJobs = await sessionQueue.getJobs(['completed']);
         const failedJobs = await sessionQueue.getJobs(['failed']);
+        const delayedJobs = await sessionQueue.getJobs(['delayed']); // Add delayed state
 
         console.log(`Waiting Jobs: ${waitingJobs.length}`);
         console.log(`Active Jobs: ${activeJobs.length}`);
         console.log(`Completed Jobs: ${completedJobs.length}`);
         console.log(`Failed Jobs: ${failedJobs.length}`);
+        console.log(`Delayed Jobs: ${delayedJobs.length}`); // Log delayed jobs
     } catch (error) {
         console.error('Error inspecting queue:', error);
     }
