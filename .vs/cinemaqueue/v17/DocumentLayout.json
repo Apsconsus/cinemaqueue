@@ -60,7 +60,7 @@
               "RelativeDocumentMoniker": "inspectQueue.js",
               "ToolTip": "C:\\GitHub\\cinemaqueue\\inspectQueue.js",
               "RelativeToolTip": "inspectQueue.js",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAQwHgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAH4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-12-11T09:52:19.981Z",
               "EditorCaption": ""
@@ -87,8 +87,7 @@
               "RelativeToolTip": "scheduler.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-12-11T07:16:22.65Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-11T07:16:22.65Z"
             },
             {
               "$type": "Document",

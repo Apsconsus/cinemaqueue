@@ -11,6 +11,9 @@ const sessionQueue = new Queue('sessionQueue', {
 
 async function inspectQueue() {
     try {
+        const currentTime = new Date();
+        console.log(`Current Time: ${currentTime.toISOString()}`);
+
         const waitingJobs = await sessionQueue.getJobs(['waiting']);
         const activeJobs = await sessionQueue.getJobs(['active']);
         const completedJobs = await sessionQueue.getJobs(['completed']);
@@ -23,21 +26,24 @@ async function inspectQueue() {
         console.log(`Failed Jobs: ${failedJobs.length}`);
         console.log(`Delayed Jobs: ${delayedJobs.length}`);
 
+        if (delayedJobs.length > 0) {
+            console.log('Delayed Jobs Details:');
+            for (const job of delayedJobs) {
+                const delayUntil = new Date(job.timestamp + job.delay); // Calculate when the job will be processed
+                const timeLeft = Math.max(0, delayUntil.getTime() - currentTime.getTime()); // Time left in milliseconds
+                console.log(`- Job ID: ${job.id}`);
+                console.log(`  Data:`, job.data);
+                console.log(`  Scheduled for: ${delayUntil.toISOString()}`);
+                console.log(`  Time Until Processing: ${Math.ceil(timeLeft / 1000)} seconds`);
+            }
+        }
+
         if (failedJobs.length > 0) {
             console.log('Failed Jobs Details:');
             for (const job of failedJobs) {
                 console.log(`- Job ID: ${job.id}`);
                 console.log(`  Data:`, job.data);
                 console.log(`  Failed Reason: ${job.failedReason || 'No reason provided'}`);
-            }
-        }
-
-        if (delayedJobs.length > 0) {
-            console.log('Delayed Jobs Details:');
-            for (const job of delayedJobs) {
-                console.log(`- Job ID: ${job.id}`);
-                console.log(`  Data:`, job.data);
-                console.log(`  Delayed Until: ${new Date(job.timestamp + job.delay).toISOString()}`);
             }
         }
     } catch (error) {
