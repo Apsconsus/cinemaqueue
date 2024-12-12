@@ -3,16 +3,17 @@ const pool = require('./db');
 const sessionQueue = require('./queue');
 
 async function scheduleJobs() {
-    const now = new Date();
+    // Use local time for "now"
+    const now = new Date(); // Local system time
     const thirtyMinutesLater = new Date(now.getTime() + 30 * 60 * 1000);
 
     try {
-        console.log('Scheduler started. Current time:', now);
+        console.log('Scheduler started. Current local time:', now);
         console.log('Looking for sessions between:', now, 'and', thirtyMinutesLater);
 
-        // Query unprocessed sessions
+        // Query unprocessed sessions using utc_time
         const result = await pool.query(
-            `SELECT id AS sessionId, cinemaId, date AS sessionTime
+            `SELECT id AS sessionId, cinemaId, utc_time AS sessionTime
              FROM sessions
              WHERE utc_time BETWEEN $1 AND $2
              AND NOT EXISTS (
@@ -26,7 +27,7 @@ async function scheduleJobs() {
         for (const session of result.rows) {
             // Calculate delay for the job
             const delay = new Date(session.sessiontime).getTime() + 30 * 60 * 1000 - now.getTime();
-            console.log('Scheduling job for session:', session, 'with delay:', delay);
+            console.log('Scheduling job for session:', session, 'with delay (ms):', delay);
 
             // Create combined ID
             const combinedId = `${session.sessionid}-${session.cinemaid}`;
@@ -59,4 +60,5 @@ async function scheduleJobs() {
     }
 }
 
+// Schedule jobs immediately upon script execution
 scheduleJobs();
