@@ -60,5 +60,21 @@ async function scheduleJobs() {
     }
 }
 
-// Schedule jobs immediately upon script execution
-scheduleJobs();
+async function runSchedulerPeriodically() {
+    console.log('Starting the scheduler in periodic mode...');
+    const interval = 5 * 60 * 1000; // Run every 5 minutes
+
+    while (true) {
+        try {
+            console.log('Running the scheduler...');
+            await scheduleJobs(); // Call your existing scheduler function
+        } catch (error) {
+            console.error('Error during scheduler execution:', error);
+        }
+
+        console.log(`Waiting ${interval / 1000} seconds until next execution...`);
+        await new Promise(resolve => setTimeout(resolve, interval));
+    }
+}
+
+runSchedulerPeriodically();
